@@ -1,21 +1,32 @@
-# ESP-Now-Serial-Bridge
+# ESP-NOW Serial Bridge
 
-ESP32 based serial bridge for transmitting serial data between two boards
+This project allows you to build inexpensive serial links over 2.4 GHz links!
 
-The primary purpose of this sketch was to enable a MAVLink serial connection, which I successfully tested at 57600 bps.  In theory, much faster buad rates should work fine, but I have not tested faster than 115200.
- 
-Range is easily better than regular WiFi, however an external antenna may be required for truly long range messaging, to combat obstacles/walls, and/or to achieve success in an area saturated with 2.4GHz traffic.
+This has been initially designed to be used as a replacement for a SIK Radio telemetry on a Drone-Ground Station Link, but it should work with any serial communication.
 
-To find the MAC address of each board, uncomment the `#define DEBUG` line, and monitor serial output on boot.  Set the OPPOSITE board's IP address as the value for RECVR_MAC in the macros at the top of the sketch.
+The range is highly dependent on your antennas, while baud-rate has been tested up to 57600 baudps. Going further should be possible.
 
-When uploading the sketch, be sure to define `BOARD1` or `BOARD2` as appropriate before compiling.
+# Install
 
--- Yuri - Sep 2021
+You'll need the [platformio](https://platformio.org) toolchain installed.
+Then you edit the `platformio.ini` file with your board characteristics.
 
-Based this example - https://randomnerdtutorials.com/esp-now-two-way-communication-esp32/
+Compile with `pio run -t upload -e board1` or `pio run -t upload -e board2`.
 
-### License
+# Configuration
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files.
+In order to allow the devices to communicate, you have to distinguish what is "board 1" and what is "board 2", and their MAC addresses.
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+You can set the `DEBUG` flag in the `include/config.h` file, upload your code and open a serial monitor with `pio device monitor`.
+
+There you should see the board MAC address, which you have then to put in the `include/config.h` file.
+
+# LICENSE
+
+This is based on the work of Yuri on  [ESP-Now-Serial-Bridge](https://github.com/yuri-rage/ESP-Now-Serial-Bridge).
+All rights to him for his pieces of software.
+
+Part of the software was also based on the tutorial by [randomnerdtutorials.com](https://randomnerdtutorials.com/esp-now-two-way-communication-esp32/).
+
+
+For everything else, the software licensed under the GNU GPL 3 license. See [LICENSE](LICENSE).
