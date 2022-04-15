@@ -6,6 +6,9 @@ This has been initially designed to be used as a replacement for a SIK Radio tel
 
 The range is highly dependent on your antennas, while baud-rate has been tested up to 57600 baudps. Going further should be possible.
 
+There is (virtually) no control! So any frame could potentially arrive broken or be lost. This is acceptable for a protocol like MAVlink, and in cases where bandwidth and low latency are more important than missing packets.
+There are better solutions if what you want is a reliable connection.
+
 # Install
 
 You'll need the [platformio](https://platformio.org) toolchain installed.
