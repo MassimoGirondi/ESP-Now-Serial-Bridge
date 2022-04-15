@@ -2,6 +2,8 @@
 #include <WiFi.h>
 #include <esp_wifi.h>
 #include "config.h"
+#include "rssi.h"
+#include "utils.h"
 
 const uint8_t peerAddress[] = RECV_MAC;
 const uint8_t ourAddress[] = SEND_MAC;
@@ -15,16 +17,6 @@ uint8_t buf_size = 0;
 uint32_t send_timeout = 0;
 
 esp_now_peer_info_t peerInfo;  // scope workaround for arduino-esp32 v2.0.1
-
-
-void printMac(const uint8_t * mac)
-{
-  for (int i = 0; i < 6; i++) {
-    Serial.print(mac[i], HEX);
-    if( i!=5)
-        Serial.print(":");
-  }
-}
 
 #if defined(DEBUG) || defined(BLINK_ON_SEND_SUCCESS)
 uint8_t led_status = 0;
@@ -104,6 +96,11 @@ void setup() {
     #endif
     return;
   }
+
+#if RSSI
+  esp_wifi_set_promiscuous(true);
+  esp_wifi_set_promiscuous_rx_cb(&promiscuous_rx_cb);
+#endif
 
   #if defined(DEBUG) || defined(BLINK_ON_SEND_SUCCESS)
   esp_now_register_send_cb(OnDataSent);

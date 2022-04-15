@@ -12,16 +12,24 @@
 #define RX_PIN     3 // default UART0 is pin 3 (shared by USB)
 #define SER_PARAMS SERIAL_8N1 // SERIAL_8N1: start/stop bits, no parity
 
+// Print estimations on the RSSI value
+#define RSSI 0
+#define RSSI_PKTS 10
+
 #define BUFFER_SIZE 250 // max of 250 bytes
 //#define DEBUG // for additional serial messages (may interfere with other messages)
+// #define LED_BUILTIN whatever
+
+
+///////////////////////////////////
 
 #ifndef LED_BUILTIN
 #define LED_BUILTIN 2  // some boards don't have an LED or have it connected elsewhere
 #endif
 
-
-
-///////////////////////////////////
+#ifndef RSSI
+#define RSSI 0
+#endif
 
 #ifndef BOARD
 #define BOARD=1
@@ -42,7 +50,5 @@
 //#define BLINK_ON_SEND_SUCCESS
 //#define BLINK_ON_RECV
 #endif
-
-
 
 #endif
